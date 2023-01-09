@@ -67,14 +67,14 @@
                 }
         stage ('Build docker image') {
             steps {
-               sh "docker image build -t beatyourlimits/spc:v1.0"
+               sh "docker image build -t beatyourlimits/spc:${BUILD_ID}""
             }
         }
          stage ('Push image to Artifactory') {
             steps {
                 rtDockerPush(
                     serverId: "Artifactory",
-                    image: "docker image build -t beatyourlimits/spc:v1.0" ,
+                    image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
                      targetRepo: 'docker-local'
                 )
             }
