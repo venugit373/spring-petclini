@@ -66,7 +66,7 @@
                 }
                 }
         stage ('Build docker image') {
-            steps {
+            steps {sh 'cp /home/murali/JAVA/workspace/done/target/spring-petclinic-2.7.3.jar /home/murali/JAVA/workspace/done/spring-petclinic-2.7.3.jar '
                sh "docker image build -t beatyourlimits/spc:${BUILD_ID} ."
             }
         }
