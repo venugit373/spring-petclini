@@ -1,73 +1,94 @@
-pipeline {
-    agent { label 'JDK11' }
-    options { 
-        timeout(time: 1, unit: 'HOURS')
+ pipeline {
+    agent { label 'NODE1' }
+     environment {
+        PATH = "$PATH:/opt/apache-maven-3.8.2/bin"
     }
-    triggers {
-        cron('0 * * * *')
-    }
+    triggers { pollSCM '* * * * *' }
+    parameters {  
+                 choice(name: 'maven_goal', choices: ['install','package','clean install'], description: 'build the code')
+                 choice(name: 'branch_to_build', choices: ['main', 'dev', 'ppm'], description: 'choose build')
+                }
     stages {
-        stage('Source Code') {
+        stage ('vcs') {
             steps {
-                git url: 'https://github.com/GitPracticeRepo/spring-petclinic.git', 
-                branch: 'main'
-            }
-            
-        }
-        stage('Artifactory-Configuration') {
-            steps {
-                rtMavenDeployer (
-                    id: 'spc-deployer',
-                    serverId: 'JFROG_INSTANCE',
-                    releaseRepo: 'qtecomm-libs-release-local',
-                    snapshotRepo: 'qtecomm-libs-snapshot-local',
-                    
-                )
+                 git url: 'https://github.com/vikashpudi/spring-petclini.git', 
+                 branch: 'main'
+              //  sh' git checkout main'
             }
         }
-        stage('Build the Code and sonarqube-analysis') {
+        stage("build & SonarQube analysis") {
             steps {
-                // withSonarQubeEnv('SONAR_LATEST') {
-                //     sh script: "mvn ${params.GOAL} sonar:sonar"
-                // }
+              sh' echo ***********SONAR SCANING************************'
+              withSonarQubeEnv('sonarqube') {
+                sh "mvn ${params.maven_goal} sonar:sonar"
+              }
 
-                rtMavenRun (
-                    // Tool name from Jenkins configuration.
-                    tool: 'MVN_DEFAULT',
-                    pom: 'pom.xml',
-                    goals: 'clean install',
-                    // Maven options.
-                    deployerId: 'spc-deployer',
-                )
-                
-                // stash name: 'spc-build-jar', includes: 'target/*.jar'
+            junit testResults: 'target/surefire-reports/*.xml'
             }
-        }
-        stage('reporting') {
+          }
+          stage("Quality Gate") {
             steps {
-                junit testResults: 'target/surefire-reports/*.xml'
+              sh' echo ***********QUALITY GATE************************'
+              timeout(time: 30, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
+
+        stage ('Artifactory configuration') {
+            steps {
+              rtServer (
+                  id: 'Artifactory',
+                  url: 'https://beatyourlimits.jfrog.io/',
+                  credentialsId: 'jfrogcred_id',
+                   bypassProxy: true,
+                   timeout: 300
+                       )
+                sh' echo ***********JFROG CONGIG************************'
+                rtMavenDeployer (
+                    id: "spc_DEPLOYER",
+                    serverId: "Artifactory",
+                    releaseRepo: "pre-libs-release-local",
+                    snapshotRepo: "pre-libs-release-local"
+                )
             }
         }
-        // stage("Quality Gate") {
-        //     steps {
-        //       timeout(time: 1, unit: 'HOURS') {
-        //         waitForQualityGate abortPipeline: true
-        //       }
-        //     }
-        //   }
-        
+        stage ('Exec Maven') {
+            steps {
+              sh' echo **********SENDING TO ARTIFACTORY************************'
+                rtMavenRun (
+                 //    tool: "maven", // Tool name from Jenkins configuration
+                     pom: "pom.xml",
+                     goals: "clean install ",
+                     deployerId: "spc_DEPLOYER"
+                 )
+                //sh 'mvn install'
+                }
+                }
+        stage ('Build docker image') {
+            steps {
+                script {
+                    docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/hello-world:latest', './')
+                }
+            }
+        }
+         stage ('Push image to Artifactory') {
+            steps {
+                rtDockerPush(
+                    serverId: "Artifactory",
+                    image: ARTIFACTORY_DOCKER_REGISTRY + '/hello-world:latest',
+                     targetRepo: 'docker-local',
+                )
+            }
+        }
+
+         stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "ARTIFACTORY_SERVER"
+                )
+            }
+        }
     }
-    // post {
-    //     success {
-    //         // send the success email
-    //         echo "Success"
-    //         mail bcc: '', body: "BUILD URL: ${BUILD_URL} TEST RESULTS ${RUN_TESTS_DISPLAY_URL} ", cc: '', from: 'devops@qtdevops.com', replyTo: '', 
-    //             subject: "${JOB_BASE_NAME}: Build ${BUILD_ID} Succeded", to: 'qtdevops@gmail.com'
-    //     }
-    //     unsuccessful {
-    //         //send the unsuccess email
-    //         mail bcc: '', body: "BUILD URL: ${BUILD_URL} TEST RESULTS ${RUN_TESTS_DISPLAY_URL} ", cc: '', from: 'devops@qtdevops.com', replyTo: '', 
-    //             subject: "${JOB_BASE_NAME}: Build ${BUILD_ID} Failed", to: 'qtdevops@gmail.com'
-    //     }
-    // }
+
 }
