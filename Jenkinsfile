@@ -57,7 +57,7 @@
             steps {
               sh' echo **********SENDING TO ARTIFACTORY************************'
                 rtMavenRun (
-                 //    tool: "maven", // Tool name from Jenkins configuration
+                    tool: "maven", // Tool name from Jenkins configuration
                      pom: "pom.xml",
                      goals: "clean install ",
                      deployerId: "spc_DEPLOYER"
