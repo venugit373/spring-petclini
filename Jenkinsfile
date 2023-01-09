@@ -67,17 +67,15 @@
                 }
         stage ('Build docker image') {
             steps {
-                script {
-                    docker.build(beatyourlimits + '/hello-world:latest', './')
-                }
+               sh "docker image build -t beatyourlimits/spc:v1.0"
             }
         }
          stage ('Push image to Artifactory') {
             steps {
                 rtDockerPush(
                     serverId: "Artifactory",
-                    image: beatyourlimits + '/hello-world:latest',
-                     targetRepo: 'docker-local',
+                    image: "docker image build -t beatyourlimits/spc:v1.0" ,
+                     targetRepo: 'docker-local'
                 )
             }
         }
