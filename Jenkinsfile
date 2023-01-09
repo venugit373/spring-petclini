@@ -1,7 +1,7 @@
  pipeline {
     agent { label 'NODE1' }
      environment {
-        PATH = "$PATH:/opt/apache-maven-3.8.2/bin"
+        PATH = "$PATH:/usr/share/maven/bin"
     }
     triggers { pollSCM '* * * * *' }
     parameters {  
