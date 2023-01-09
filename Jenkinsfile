@@ -53,22 +53,22 @@
                 )
             }
         }
-        stage ('Exec Maven') {
+       stage ('Exec Maven') {
             steps {
               sh' echo **********SENDING TO ARTIFACTORY************************'
-                rtMavenRun (
+             /*    rtMavenRun (
                     tool: "maven", // Tool name from Jenkins configuration
                      pom: "pom.xml",
                      goals: "clean install ",
                      deployerId: "spc_DEPLOYER"
-                 )
-                //sh 'mvn install'
+                 )*/
+                sh 'mvn install'
                 }
                 }
         stage ('Build docker image') {
             steps {
                 script {
-                    docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/hello-world:latest', './')
+                    docker.build(beatyourlimits + '/hello-world:latest', './')
                 }
             }
         }
@@ -76,7 +76,7 @@
             steps {
                 rtDockerPush(
                     serverId: "Artifactory",
-                    image: ARTIFACTORY_DOCKER_REGISTRY + '/hello-world:latest',
+                    image: beatyourlimits + '/hello-world:latest',
                      targetRepo: 'docker-local',
                 )
             }
