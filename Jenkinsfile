@@ -67,7 +67,7 @@
                 }
         stage ('Build docker image') {
             steps {
-               sh "docker image build -t beatyourlimits/spc:${BUILD_ID}""
+               sh "docker image build -t beatyourlimits/spc:${BUILD_ID}"
             }
         }
          stage ('Push image to Artifactory') {
