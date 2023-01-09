@@ -53,18 +53,18 @@
                 )
             }
         }
-       stage ('Exec Maven') {
+     /*    stage ('Exec Maven') {
             steps {
               sh' echo **********SENDING TO ARTIFACTORY************************'
-             /*    rtMavenRun (
+               rtMavenRun (
                     tool: "maven", // Tool name from Jenkins configuration
                      pom: "pom.xml",
                      goals: "clean install ",
                      deployerId: "spc_DEPLOYER"
-                 )*/
+                 )
                 sh 'mvn install'
                 }
-                }
+                }*/
         stage ('Build docker image') {
             steps {sh 'cp /home/murali/JAVA/workspace/done/target/spring-petclinic-2.7.3.jar /home/murali/JAVA/workspace/done/spring-petclinic-2.7.3.jar '
                sh "docker image build -t beatyourlimits/spc:${BUILD_ID} ."
