@@ -39,7 +39,7 @@
             steps {
               rtServer (
                   id: 'Artifactory',
-                  url: 'https://beatyourlimits.jfrog.io/',
+                  url: 'https://beatyourlimits.jfrog.io',
                   credentialsId: 'jfrogcred_id',
                    bypassProxy: true,
                    timeout: 300
@@ -47,7 +47,7 @@
                 sh' echo ***********JFROG CONGIG************************'
                 rtMavenDeployer (
                     id: "spc_DEPLOYER",
-                    serverId: "Artifactory",
+                    serverId: "jfrogserver",
                     releaseRepo: "pre-libs-release-local",
                     snapshotRepo: "pre-libs-release-local"
                 )
@@ -83,7 +83,7 @@
          stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "ARTIFACTORY_SERVER"
+                    serverId: "Artifactory"
                 )
             }
         }
