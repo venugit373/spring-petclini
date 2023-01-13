@@ -1,9 +1,10 @@
  pipeline {
     agent { label 'NODE1' }
-     environment {
-      JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64/"
-        PATH = "$JAVA_HOME/bin:$PATH:/usr/share/maven/bin"
-    }
+    /* environment {
+       JAVA_HOME = "/usr/lib/jvm/java-11-openjdk-amd64/"
+      M2_HOME = "/usr/share/maven/"
+        PATH = "$JAVA_HOME/bin:$PATH:$M2_HOME/bin"
+    }*/
     triggers { pollSCM '* * * * *' }
     parameters {  
                  choice(name: 'maven_goal', choices: ['install','package','clean install'], description: 'build the code')
