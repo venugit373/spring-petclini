@@ -65,6 +65,14 @@
                  
                 }
                 }
+stage ('Publish build info') {
+            steps {
+                rtPublishBuildInfo (
+                    serverId: "jfrogserver"
+                )
+            }
+        }
+
         stage ('Build docker image') {
             steps {sh 'cp /home/murali/JAVA/workspace/done/target/spring-petclinic-2.7.3.jar /home/murali/JAVA/workspace/done/spring-petclinic-2.7.3.jar '
                sh "docker image build -t beatyourlimits/spc:${BUILD_ID} ."
@@ -73,20 +81,14 @@
          stage ('Push image to Artifactory') {
             steps {
                 rtDockerPush(
-                    serverId: "Artifactory",
+                    serverId: "jfrogserver",
                     image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
                      targetRepo: 'docker-local'
                 )
             }
         }
 
-         stage ('Publish build info') {
-            steps {
-                rtPublishBuildInfo (
-                    serverId: "Artifactory"
-                )
-            }
-        }
+         
     }
 
 }
