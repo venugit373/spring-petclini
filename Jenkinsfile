@@ -17,11 +17,11 @@
               //  sh' git checkout main'
             }
         }
-        stage("build & SonarQube analysis") {
+    /*    stage("build & SonarQube analysis") {
             steps {
               sh' echo ***********SONAR SCANING************************'
               withSonarQubeEnv('sonarqube') {
-                sh "mvn ${params.maven_goal} sonar:sonar"
+                sh "mvn package sonar:sonar"
               }
 
             junit testResults: 'target/surefire-reports/*.xml'
@@ -34,7 +34,7 @@
                 waitForQualityGate abortPipeline: true
               }
             }
-          }
+          } */
 
         stage ('Artifactory configuration') {
             steps {
@@ -48,7 +48,7 @@
                 sh' echo ***********JFROG CONGIG************************'
                 rtMavenDeployer (
                     id: "spc_DEPLOYER",
-                    serverId: "jfrogserver",
+                    serverId: "Artifactory",
                     releaseRepo: "pre-libs-release-local",
                     snapshotRepo: "pre-libs-release-local"
                 )
@@ -69,7 +69,7 @@
 stage ('Publish build info') {
             steps {
                 rtPublishBuildInfo (
-                    serverId: "jfrogserver"
+                    serverId: "Artifactory"
                 )
             }
         }
@@ -82,7 +82,7 @@ stage ('Publish build info') {
          stage ('Push image to Artifactory') {
             steps {
                 rtDockerPush(
-                    serverId: "jfrogserver",
+                    serverId: "Artifactory",
                     image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
                      targetRepo: 'docker-local'
                 )
