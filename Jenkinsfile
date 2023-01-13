@@ -41,7 +41,7 @@
             steps {
               rtServer (
                   id: 'Artifactory',
-                  url: 'https://beatyourlimits.jfrog.io',
+                  url: 'https://a0qcouhznvjwh.jfrog.io',
                   credentialsId: 'jfrogcred_id',
                    bypassProxy: true,
                    timeout: 300
