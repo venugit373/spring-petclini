@@ -41,8 +41,8 @@
             steps {
               rtServer (
                   id: 'Artifactory',
-                  url: 'https://a0qcouhznvjwh.jfrog.io',
-                  credentialsId: 'jfrogcred_id',
+                  url: 'https://beatyourlimits.jfrog.io/artifactory/',
+                  credentialsId: 'jfrog',
                    bypassProxy: true,
                    timeout: 300
                        )
@@ -50,8 +50,8 @@
                 rtMavenDeployer (
                     id: "spc_DEPLOYER",
                     serverId: "Artifactory",
-                    releaseRepo: "pre-libs-release-local",
-                    snapshotRepo: "pre-libs-release-local"
+                    releaseRepo: "demo",
+                    snapshotRepo: "snapdemo"
                 )
             }
         }
@@ -61,7 +61,7 @@
                rtMavenRun (
                     tool: "maven", // Tool name from Jenkins configuration
                      pom: "pom.xml",
-                     goals: "clean install ",
+                     goals: "install ",
                      deployerId: "spc_DEPLOYER"
                  )
                  
