@@ -80,10 +80,20 @@ stage ('Publish build info') {
                sh "docker image build -t beatyourlimits/spc:${BUILD_ID} ."
             }
         }
+        stage ('docker Artifactory configuration') {
+            steps {
+                rtServer (
+                    id: "ARTIFACTORY_SERVER",
+                    url: "https://beatyourlimits.jfrog.io/artifactory/api/docker/" ,
+                    credentialsId: "jfrog "
+                )
+            }
+        }
+
          stage ('Push image to Artifactory') {
             steps {
                 rtDockerPush(
-                    serverId: "Artifactory",
+                    serverId: "ARTIFACTORY_SERVER",
                     image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
                      targetRepo: 'docker-local'
                 )
