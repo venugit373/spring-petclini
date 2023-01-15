@@ -76,7 +76,7 @@ stage ('Publish build info') {
         }
 
         stage ('Build docker image') {
-            steps {sh 'cp /home/murali/JAVA/workspace/done/target/spring-petclinic-2.7.3.jar /home/murali/JAVA/workspace/done/spring-petclinic-2.7.3.jar '
+            steps {sh 'curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.3/spring-petclinic-2.7.3.jar --output spring-petclinic-2.7.3.jar '
                sh "docker image build -t beatyourlimits/spc:${BUILD_ID} ."
             }
         }
