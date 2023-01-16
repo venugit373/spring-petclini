@@ -92,13 +92,13 @@ stage ('Publish build info') {
 
          stage ('Push image to Artifactory') {
             steps {
-
+/*
               withCredentials([usernameColonPassword(credentialsId: 'jfrog', variable: 'jfrogcred')]) 
               {
      docker login
-                }
+                }*/
                 sh"docker push beatyourlimits/spc:${BUILD_ID} "
-                /* rtDockerPush(
+                 rtDockerPush(
                     serverId: "ARTIFACTORY_SERVER",
                     image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
                     host: 'tcp://20.163.205.39:5000',
