@@ -145,6 +145,18 @@ rtPublishBuildInfo (
 
  *  ![](img\7.png)
 
+* ## kubernetes secres
+  ```bash
+  kubectl create secret docker-registry jfrogsecret --docker-server=beatyourlimits.jfrog.io --docker-username=pudivikash@gmail.com --docker-password=Devops@123456 --docker-email=pudivikash@gmail.com
+  ``` 
+  ![](img\8.png)
+   
+  to pull docker images from private registry we need to pass these secrets in the pod spec
+
+
+
+
+
 
 
 

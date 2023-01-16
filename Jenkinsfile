@@ -118,7 +118,7 @@ stage ('Publish build info') {
 
         stage ('depolying to ') {
             steps {
-              sh'echo depolying stgae'
+              sh'kubectl apply -f depolyments/spc.yaml'
             }} 
 
     }
