@@ -103,7 +103,7 @@ stage ('Publish build info') {
                     image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
                     host: 'tcp://20.163.205.39:5000',
                      targetRepo: 'docker-local'
-                )*/
+                )
             }
         }
 
