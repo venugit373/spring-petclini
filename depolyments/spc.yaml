@@ -18,7 +18,7 @@ spec:
     metadata:
       name: tempspecspc
       label:
-        - app: spc
+        app: spc
     spec:
       containers:
        - image: beatyourlimits.jfrog.io/mydockerrepo/spc:35
@@ -26,7 +26,7 @@ spec:
          ports:
           - containerPort: 8080
       imagePullSecrets:
-        - jfrogsecret
+        -name: jfrogsecret
   
 
 ---
