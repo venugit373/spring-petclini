@@ -24,8 +24,9 @@ spec:
        - image: beatyourlimits.jfrog.io/mydockerrepo/spc:35
          name: spc
          ports:
-           containerPort: 8080
-      imagePullSecrets: jfrogsecret
+          - containerPort: 8080
+      imagePullSecrets:
+        - jfrogsecret
   
 
 ---
