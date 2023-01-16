@@ -101,8 +101,8 @@ stage ('Publish build info') {
 				        app.push("${env.BUILD_NUMBER}")
 	        }    
               }
-                 /*
-              withCredentials([usernameColonPassword(credentialsId: 'jfrog', variable: 'jfrogcred')]) 
+                 /* 
+              //withCredentials([usernameColonPassword(credentialsId: 'jfrog', variable: 'jfrogcred')]) 
               {
      docker login
                 }
