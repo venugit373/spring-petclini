@@ -5,7 +5,7 @@
       M2_HOME = "/usr/share/maven/"
         PATH = "$JAVA_HOME/bin:$PATH:$M2_HOME/bin"
     }*/
-    triggers { pollSCM '* * * * *' }
+    //triggers { pollSCM '* * * * *' }
     parameters {  
                  choice(name: 'maven_goal', choices: ['install','package','clean install'], description: 'build the code')
                  choice(name: 'branch_to_build', choices: ['main', 'dev', 'ppm'], description: 'choose build')
@@ -116,7 +116,7 @@ stage ('Publish build info') {
             }
         }
 
-        stage ('Push image to Artifactory') {
+        stage ('depolying to ') {
             steps {
               sh'echo depolying stgae'
             }} 
