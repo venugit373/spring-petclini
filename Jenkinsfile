@@ -92,18 +92,26 @@ stage ('Publish build info') {
 
          stage ('Push image to Artifactory') {
             steps {
-/*
+              def image = "beatyourlimits/spc:${BUILD_ID}"
+              def app
+              script{
+                app = docker.build image
+                docker.withRegistry('https://beatyourlimits.jfrog.io/artifactory/api/docker/', 'jfrog') {            
+				        app.push("${env.BUILD_NUMBER}")
+	        }    
+              }
+                 /*
               withCredentials([usernameColonPassword(credentialsId: 'jfrog', variable: 'jfrogcred')]) 
               {
      docker login
-                }*/
+                }
                 sh"docker push beatyourlimits/spc:${BUILD_ID} "
                  rtDockerPush(
                     serverId: "ARTIFACTORY_SERVER",
                     image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
                     host: 'tcp://20.163.205.39:5000',
                      targetRepo: 'docker-local'
-                )
+                )*/
             }
         }
 
