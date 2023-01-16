@@ -9,6 +9,8 @@
   * rtServer (artifactory configuration) , rtMavenDeployer (repository choosing )
   * rtMavenRun (execute maven goals)
   * Publish build info
+  * Build docker image
+  * pushing image from local to jfrog repo
   * ![](img\2.png)
 
 * ## prereusites 
@@ -20,6 +22,7 @@
          ![](img\1.png).
       * configure sonarqube in manage jenkins -> system configuration
       * ![](img\.png)
+    *  docker pipeline plugin installed. 
     * write jenkis file where the code is present . ie SCM
     * a branchig strategy ( here we follw github branching strategy ie. here we have four branches every branch a pipeline on the dev branch for every commit we triggr the build. on the testing branch we configure cronjob  )
     * 
@@ -101,17 +104,55 @@ rtPublishBuildInfo (
                 )
 ```
  * after uploading publish the details in the jenkins build page
-  
+* ## building docker image
+  * buid the docker image using build package for this we need to write the docker file. nad that docker file also placed where the code is present i.e git
+  the docker file is 
+  ```Dockerfile
+              FROM amazoncorretto:11
+              ADD  ./spring-petclinic-2.7.3.jar /
+              WORKDIR /
+              EXPOSE 8080
+              CMD ["java","-jar","spring-petclinic-2.7.3.jar"]
 
-
-
-  --------------------------------------------------------------------------------------------------
-````
-this command is used to download the artifact from the jfrog repositery
+  ``` 
+      ![](img\5.png)
+  * if the build the code in the same node then the packae is in the target folder. copy the jar file from that location.or  if u using multiple nodes use stash and unstash or by using curl download the package .
+  * here in this case we r using curl request
+    ```bash
+    this command is used to download the artifact from the jfrog repositery
   curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.3/spring-petclinic-2.7.3.jar --output spring-petclinic-2.7.3.jar
-````
+    ```
+* ## pushing image from local to  jfrog docker register
+  * after building the image from jar file which was build in previous stage by using the docker file.
+  * for this we have servral options 
+      * shellcommands
+      * rtDockerpush
+      * docker pipeline plugin
+  * here we are follow docker pipeling plug in. the following is the script for the pushing the image.
+   ![](img\6.png)
+  ```bash
+  script{
+              //  def image = "spc:${BUILD_ID}"
+              def app
+                app = docker.build  "mydockerrepo/spc:${BUILD_ID}"
+                docker.withRegistry('https://beatyourlimits.jfrog.io/artifactory/mydockerrepo', 'jfrog') {            
+				        app.push("${env.BUILD_NUMBER}")
+	        }    
+  ```
+  * docker.withRegistry requries two arguments 
+                          1. repositery url
+                          2. jfrog creditnals id (configured in credentals section of mangae jenkins section )
+
+ *  ![](img\7.png)
 
 
 
+
+
+  ---------------------------------------------------------------------------------------------------------------------------------------------
+  
+  
+* this command is used to download the artifact from the jfrog repositery
+  curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.3/spring-petclinic-2.7.3.jar --output spring-petclinic-2.7.3.jar
 ----------------------------------------------------------------------------------------------------
-when i run docker image build command manually in node it works but when it runs from jenkins it show demon error. `solutuion --->  sudo chmod 777 /var/run/docker.sock`  (why)
+* when i run docker image build command manually in node it works but when it runs from jenkins it show demon error. `solutuion --->  sudo chmod 777 /var/run/docker.sock`  (why)
