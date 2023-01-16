@@ -28,7 +28,7 @@
     git url: 'https://github.com/vikashpudi/spring-petclini.git', 
         branch: 'main'
    ```
-             ![](img\2.png)
+    ![](img\3.png)
 * ###  build & SonarQube analysis
   ```bash
    stage("build & SonarQube analysis") {
@@ -70,14 +70,14 @@
        manage jenkins -> manage credentials
         ![](img\4.png)
 *  ### rtMavenDeployer
-        ``` bash
-        rtMavenDeployer (
-                            id: "spc_DEPLOYER",
-                            serverId: "Artifactory",
-                            releaseRepo: "demo",
-                            snapshotRepo: "snapdemo"
-                        )
-        ```
+``` bash
+    rtMavenDeployer (
+                        id: "spc_DEPLOYER",
+                        serverId: "Artifactory",
+                        releaseRepo: "demo",
+                        snapshotRepo: "snapdemo"
+                                )
+```
     * id will be used in further steps
     * give id whic u haven given in rtserver
     * give the repositery names where u want to preserve the artifact
@@ -100,5 +100,18 @@ rtPublishBuildInfo (
                     serverId: "Artifactory"
                 )
 ```
-    *  after uploading publish the details
+ * after uploading publish the details in the jenkins build page
   
+
+
+
+  --------------------------------------------------------------------------------------------------
+````
+this command is used to download the artifact from the jfrog repositery
+  curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.3/spring-petclinic-2.7.3.jar --output spring-petclinic-2.7.3.jar
+````
+
+
+
+----------------------------------------------------------------------------------------------------
+when i run docker image build command manually in node it works but when it runs from jenkins it show demon error. `solutuion --->  sudo chmod 777 /var/run/docker.sock`  (why)
