@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: springpet-clinc-Deployment
   label:
-    app: spc 
+    - app: spc 
 spec:
   minReadySeconds: 10
   replicas: 1
@@ -20,7 +20,7 @@ spec:
     metadata:
       name: tempspecspc
       label:
-        app: spc
+        - app: spc
     spec:
       containers:
        - image: beatyourlimits.jfrog.io/mydockerrepo/spc:35
