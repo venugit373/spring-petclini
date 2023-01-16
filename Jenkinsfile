@@ -116,7 +116,11 @@ stage ('Publish build info') {
             }
         }
 
-         
+        stage ('Push image to Artifactory') {
+            steps {
+              sh'echo depolying stgae'
+            }} 
+
     }
 
 }
