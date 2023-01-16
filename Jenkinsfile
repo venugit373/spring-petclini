@@ -95,7 +95,7 @@ stage ('Publish build info') {
                 rtDockerPush(
                     serverId: "ARTIFACTORY_SERVER",
                     image: "docker image build -t beatyourlimits/spc:${BUILD_ID}" ,
-                    host: 'tcp://20.163.205.39:2375',
+                    host: 'tcp://20.163.205.39:5000',
                      targetRepo: 'docker-local'
                 )
             }
