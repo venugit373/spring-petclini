@@ -97,7 +97,7 @@ stage ('Publish build info') {
                 def image = "beatyourlimits/spc:${BUILD_ID}"
               def app
                 app = docker.build image
-                docker.withRegistry('https://beatyourlimits.jfrog.io/artifactory/api/docker/', 'jfrog') {            
+                docker.withRegistry('https://beatyourlimits.jfrog.io/artifactory/api/docker/mydockerrepo', 'jfrog') {            
 				        app.push("${env.BUILD_NUMBER}")
 	        }    
               }
