@@ -3,8 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: springpet-clinc-Deployment
-  label:
-    - app: spc 
 spec:
   minReadySeconds: 10
   replicas: 1
@@ -27,5 +25,20 @@ spec:
          name: spc
          ports:
            containerPort: 8080
-      imagePullSecrets:
-        jfrogsecret
+      imagePullSecrets: jfrogsecret
+  
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openmrs-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: spc
+  ports:
+    - name: appport
+      port: 7070
+      protocol: TCP
+      targetPort: 8080
