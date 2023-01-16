@@ -92,9 +92,10 @@ stage ('Publish build info') {
 
          stage ('Push image to Artifactory') {
             steps {
-              def image = "beatyourlimits/spc:${BUILD_ID}"
-              def app
+              
               script{
+                def image = "beatyourlimits/spc:${BUILD_ID}"
+              def app
                 app = docker.build image
                 docker.withRegistry('https://beatyourlimits.jfrog.io/artifactory/api/docker/', 'jfrog') {            
 				        app.push("${env.BUILD_NUMBER}")
