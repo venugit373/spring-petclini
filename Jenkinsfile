@@ -15,7 +15,7 @@
             steps {
                  git url: 'https://github.com/vikashpudi/spring-petclini.git', 
                  branch: 'main'
-              //  sh' git checkout main'
+                sh'mvn package'
             }
         }
     /*    stage("build & SonarQube analysis") {
@@ -61,7 +61,7 @@
                rtMavenRun (
                     tool: "maven", // Tool name from Jenkins configuration
                      pom: "pom.xml",
-                     goals: "install ",
+                     goals: "clean install ",
                      deployerId: "spc_DEPLOYER"
                  )
                  

@@ -120,7 +120,7 @@ rtPublishBuildInfo (
   * here in this case we r using curl request
     ```bash
     this command is used to download the artifact from the jfrog repositery
-  curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.3/spring-petclinic-2.7.3.jar --output spring-petclinic-2.7.3.jar
+  curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.4/spring-petclinic-2.7.4.jar --output spring-petclinic-2.7.4.jar
     ```
 * ## pushing image from local to  jfrog docker register
   * after building the image from jar file which was build in previous stage by using the docker file.
