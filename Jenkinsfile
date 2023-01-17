@@ -15,7 +15,7 @@
             steps {
                  git url: 'https://github.com/vikashpudi/spring-petclini.git', 
                  branch: 'main'
-                sh'mvn package'
+                //sh'mvn package'
             }
         }
     /*    stage("build & SonarQube analysis") {
@@ -76,7 +76,8 @@ stage ('Publish build info') {
         }
 
         stage ('Build docker image') {
-            steps {sh 'curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.4/spring-petclinic-2.7.4.jar --output spring-petclinic-2.7.4.jar '
+            steps {//sh 'curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.4/spring-petclinic-2.7.4.jar --output spring-petclinic-2.7.4.jar '
+               sh"mv /home/murali/remot/workspace/SPRINGPET/target/spring-petclinic-2.7.4.jar spring-petclinic-2.7.4.jar "
                sh "docker image build -t beatyourlimits/spc:${BUILD_ID} ."
             }
         }
