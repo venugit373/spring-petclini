@@ -120,6 +120,7 @@ stage ('Publish build info') {
         stage ('depolying to ') {
             steps {
               sh'kubectl apply -f depolyments/spc.yaml'
+              sh'kubectl get svc'
             }} 
 
     }

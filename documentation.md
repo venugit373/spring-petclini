@@ -151,7 +151,42 @@ rtPublishBuildInfo (
   ``` 
   ![](img\8.png)
    
-  to pull docker images from private registry we need to pass these secrets in the pod spec
+  To pull docker images from private registry we need to pass these secrets in the `Deployment.spec.template.spec.imagePullSecrets`
+
+
+  * **deploymnent manifest**
+      ```yaml
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: springpetclinceployment
+            spec:
+              minReadySeconds: 10
+              replicas: 1
+              selector:
+                matchLabels:
+                  app: spc
+              strategy:
+                rollingUpdate:
+                  maxSurge: 25
+                  maxUnavailable: 25
+                type: RollingUpdate
+              template:
+                metadata:
+                  name: tempspecspc
+                  labels:
+                    app: spc
+                spec:
+                  containers:
+                  - image: beatyourlimits.jfrog.io/mydockerrepo/spc:46
+                    name: spc
+                    ports:
+                      - containerPort: 8080
+                  imagePullSecrets:
+                    - name: jfrogsecret
+      ```
+* but the challange over here is u need update the the image for ever build. this can be achived by helm or kustamize.**yet to lern** .
+
 
 
 
