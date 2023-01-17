@@ -21,7 +21,7 @@ spec:
         app: spc
     spec:
       containers:
-       - image: beatyourlimits.jfrog.io/mydockerrepo/spc:35
+       - image: beatyourlimits.jfrog.io/mydockerrepo/spc:46
          name: spc
          ports:
           - containerPort: 8080
