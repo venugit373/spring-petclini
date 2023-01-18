@@ -241,7 +241,9 @@
     </license>
   </licenses>
    
-  <repository>
+ 
+  <repositories>
+   <repository>
   <id>vikash0557</id>
   <url>https://pkgs.dev.azure.com/vikash0557/_packaging/vikash0557/maven/v1</url>
   <releases>
@@ -251,7 +253,6 @@
     <enabled>true</enabled>
   </snapshots>
 </repository> 
-  <repositories>
     <repository>
       <id>spring-snapshots</id>
       <name>Spring Snapshots</name>
