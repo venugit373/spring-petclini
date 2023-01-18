@@ -3,6 +3,14 @@ trigger:
   - main
 pool: selfnamepool
 steps:
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: "11"
+      jdkArchitectureOption: x64
+      jdkSourceOption: LocalDirectory
+      jdkFile: "https://builds.openlogic.com/downloadJDK/openlogic-openjdk/11.0.8%2B10/openlogic-openjdk-11.0.8%2B10-linux-x64.tar.gz"
+      jdkDestinationDirectory: "/builds/binaries/externals"
+      cleanDestinationDirectory: true
   - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
