@@ -240,7 +240,17 @@
       <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
-
+   
+  <repository>
+  <id>vikash0557</id>
+  <url>https://pkgs.dev.azure.com/vikash0557/_packaging/vikash0557/maven/v1</url>
+  <releases>
+    <enabled>true</enabled>
+  </releases>
+  <snapshots>
+    <enabled>true</enabled>
+  </snapshots>
+</repository> 
   <repositories>
     <repository>
       <id>spring-snapshots</id>
