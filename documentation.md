@@ -1,7 +1,7 @@
 # **Full pipeline**
 ---------------------
 
-## **This document describe the full pipelie life of the JAVA project with the follwig stages .**
+## **This document describes the full pipelie line of the JAVA project with the follwig stages .**
   * git checkout
   * build & SonarQube analysis
   * Quality Gate
@@ -31,7 +31,7 @@
     git url: 'https://github.com/vikashpudi/spring-petclini.git', 
         branch: 'main'
    ```
-    ![](img\3.png)
+  ![](img\3.png)
 * ###  build & SonarQube analysis
   ```bash
    stage("build & SonarQube analysis") {
@@ -146,6 +146,7 @@ rtPublishBuildInfo (
  *  ![](img\7.png)
 
 * ## kubernetes secres
+  * here i configure the kubectl maually . need to figure out the optimal way
   ```bash
   kubectl create secret docker-registry jfrogsecret --docker-server=beatyourlimits.jfrog.io --docker-username=pudivikash@gmail.com --docker-password=Devops@123456 --docker-email=pudivikash@gmail.com
   ``` 
@@ -153,7 +154,7 @@ rtPublishBuildInfo (
    
   To pull docker images from private registry we need to pass these secrets in the `Deployment.spec.template.spec.imagePullSecrets`
 
-
+  
   * **deploymnent manifest**
       ```yaml
             apiVersion: apps/v1
@@ -203,3 +204,5 @@ rtPublishBuildInfo (
   curl -u "pudivikash:Devops@123456" -X GET https://beatyourlimits.jfrog.io/artifactory/demo/org/springframework/samples/spring-petclinic/2.7.3/spring-petclinic-2.7.3.jar --output spring-petclinic-2.7.3.jar
 ----------------------------------------------------------------------------------------------------
 * when i run docker image build command manually in node it works but when it runs from jenkins it show demon error. `solutuion --->  sudo chmod 777 /var/run/docker.sock`  (why)
+* -------------------------------------------------------------------------------------------------------
+* vzhkgclht4j77v7fmsrvoib6lwgpsi3nqvjsk7pf2fturfdj3nza
