@@ -3,7 +3,7 @@ trigger:
 - main
 
 pool: selfnamepool
- steps:
+steps:
 - task: JavaToolInstaller@0
   inputs:
     versionSpec: '11'
