@@ -21,4 +21,4 @@ steps:
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
-      goals: 'deploy -s /home/Murali/.m2/settings.xml'
+      goals: 'deploy'
