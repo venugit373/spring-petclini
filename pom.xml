@@ -240,9 +240,7 @@
       <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
-   
- 
-  <repositories>
+   <repositories>
    <repository>
           <id>SPRINGPET</id>
           <url>https://pkgs.dev.azure.com/vikash0557/springpetclinc/_packaging/SPRINGPET/maven/v1</url>
