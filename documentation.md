@@ -11,7 +11,7 @@
   * Publish build info
   * Build docker image
   * pushing image from local to jfrog repo
-  * ![](img\2.png)
+  * ![preview](img\2.png)
 
 * ## prereusites 
    * jenkins setup with atleast one node
@@ -19,9 +19,9 @@
    * configure maven  in manage jenkins -> global tool conguration 
       * this is used in 'rtMavenRun tool section'. 
              
-         ![](img\1.png).
+         ![preview](img\1.png).
       * configure sonarqube in manage jenkins -> system configuration
-      * ![](img\.png)
+      * ![preview](img\.png)
     *  docker pipeline plugin installed. 
     * write jenkis file where the code is present . ie SCM
     * a branchig strategy ( here we follw github branching strategy ie. here we have four branches every branch a pipeline on the dev branch for every commit we triggr the build. on the testing branch we configure cronjob  )
@@ -31,7 +31,7 @@
     git url: 'https://github.com/vikashpudi/spring-petclini.git', 
         branch: 'main'
    ```
-  ![](img\3.png)
+  ![preview](img\3.png)
 * ###  build & SonarQube analysis
   ```bash
    stage("build & SonarQube analysis") {
