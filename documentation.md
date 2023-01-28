@@ -11,7 +11,7 @@
   * Publish build info
   * Build docker image
   * pushing image from local to jfrog repo
-  * ![preview](img\2.png)
+  * ![preview](img/2.png)
 
 * ## prereusites 
    * jenkins setup with atleast one node
@@ -19,7 +19,7 @@
    * configure maven  in manage jenkins -> global tool conguration 
       * this is used in 'rtMavenRun tool section'. 
              
-         ![preview](img\1.png).
+         ![preview](img/1.png).
       * configure sonarqube in manage jenkins -> system configuration
       * ![preview](img\.png)
     *  docker pipeline plugin installed. 
@@ -31,7 +31,7 @@
     git url: 'https://github.com/vikashpudi/spring-petclini.git', 
         branch: 'main'
    ```
-  ![preview](img\3.png)
+  ![preview](img/3.png)
 * ###  build & SonarQube analysis
   ```bash
    stage("build & SonarQube analysis") {
@@ -71,7 +71,7 @@
    * url: this is our artifactory url 
    * credentialsId : give the id which u configure in the jenkis credentals
        manage jenkins -> manage credentials
-        ![](img\4.png)
+        ![](img/4.png)
 *  ### rtMavenDeployer
 ``` bash
     rtMavenDeployer (
@@ -115,7 +115,7 @@ rtPublishBuildInfo (
               CMD ["java","-jar","spring-petclinic-2.7.3.jar"]
 
   ``` 
-      ![](img\5.png)
+      ![](img/5.png)
   * if the build the code in the same node then the packae is in the target folder. copy the jar file from that location.or  if u using multiple nodes use stash and unstash or by using curl download the package .
   * here in this case we r using curl request
     ```bash
