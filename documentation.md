@@ -186,7 +186,7 @@ rtPublishBuildInfo (
                   imagePullSecrets:
                     - name: jfrogsecret
       ```
-* but the challange over here is u need update the the image for ever build. this can be achived by helm or kustamize.**yet to lern** .
+* but the challange over here is u need update the the image in manifest for ever build. this can be sloved by helm or kustamize.**yet to lern** .
 
 
 
