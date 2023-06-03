@@ -30,6 +30,14 @@
     
 
   </properties>
+  
+  <distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>a0yrsiqxvgm5r-artifactory-primary-0-releases</name>
+        <url>https://venu7.jfrog.io/artifactory/default-libs-release</url>
+    </repository>
+</distributionManagement>
 
   <dependencies>
     <!-- Spring and Spring Boot dependencies -->
