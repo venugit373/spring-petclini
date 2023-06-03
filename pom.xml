@@ -30,14 +30,6 @@
     
 
   </properties>
-  
-  <distributionManagement>
-    <repository>
-        <id>central</id>
-        <name>a0yrsiqxvgm5r-artifactory-primary-0-releases</name>
-        <url>https://venu7.jfrog.io/artifactory/default-libs-release</url>
-    </repository>
-</distributionManagement>
 
   <dependencies>
     <!-- Spring and Spring Boot dependencies -->
@@ -279,18 +271,12 @@
     </pluginRepository>
   </pluginRepositories>
   <distributionManagement>
-        <repository>
-          <id>SPRINGPET</id>
-          <url>https://pkgs.dev.azure.com/vikash0557/springpetclinc/_packaging/SPRINGPET/maven/v1</url>
-          <releases>
-            <enabled>true</enabled>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-        </repository>
+    <repository>
+        <id>central</id>
+        <name>a0yrsiqxvgm5r-artifactory-primary-0-releases</name>
+        <url>https://venu7.jfrog.io/artifactory/default-libs-release</url>
+    </repository>
 </distributionManagement>
-
   <profiles>
     <profile>
       <id>css</id>
